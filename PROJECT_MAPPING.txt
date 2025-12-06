@@ -1,0 +1,67 @@
+Сопоставление требований проекта с реализацией (файлы и модули)
+
+Аутентификация:
+- Файлы: app/auth.py, app/routers/auth.py
+- Описание: регистрация, хеширование пароля (passlib), проверка пароля,
+  генерация JWT (create_access_token). Эндпоинты: /auth/register, /auth/token.
+
+Модели данных (ER):
+- Файл: app/models.py
+- Описание: модели User, Category, Transaction; SQLModel и metadata используются
+  для миграций и инициализации БД.
+
+База данных и подключение:
+- Файл: app/db.py
+- Описание: создание engine по DATABASE_URL, init_db(), get_session(), override_database() для тестов.
+
+Миграции (Alembic):
+- Папка/файлы: alembic/, alembic.ini, alembic/env.py, alembic/versions/*.py
+- Описание: env.py подключает app.models и использует SQLModel.metadata; есть автоген. ревизия.
+
+Роутеры / API:
+- Папка: app/routers/
+- Файлы: auth.py, categories.py, transactions.py
+- Эндпоинты: регистрация/токен, CRUD категорий, CRUD транзакций, импорт CSV, месячный отчёт.
+
+Схемы / Pydantic:
+- Файл: app/schemas.py
+- Описание: схемы запросов/ответов (UserCreate/UserRead, CategoryCreate/Read, TransactionCreate/Read).
+
+CSV импорт и агрегация:
+- Файл: app/routers/transactions.py
+- Описание: импорт CSV (pandas), сопоставление/создание категорий, месячные агрегаты.
+
+Тесты:
+- Папка: tests/
+- Файлы: tests/conftest.py, tests/test_basic.py, tests/test_auth_flow.py, tests/test_crud_flow.py
+- Описание: фикстуры для sqlite, тесты регистрации/логина и CRUD потоков.
+
+CI (GitHub Actions):
+- Файл: .github/workflows/ci.yml
+- Описание: workflow для запуска pytest.
+
+Docker / Docker Compose:
+- Файлы: Dockerfile, docker-compose.yml, entrypoint.sh
+- Описание: контейнеризация приложения и сервис Postgres; entrypoint запускает миграции.
+
+Конфигурация / env:
+- Файл: app/core/config.py, .env.example
+- Описание: Settings (DATABASE_URL, SECRET_KEY, algorithm, access_token_expire_minutes) через pydantic-settings.
+
+Документация / README:
+- Файл: README.md
+- Описание: инструкции по локальному запуску, миграциям, примеры запросов (Swagger доступен на /docs).
+
+Зависимости:
+- Файл: requirements.txt
+- Описание: перечислены ключевые библиотеки (fastapi, sqlmodel, alembic, passlib[bcrypt], python-jose, uvicorn, pandas, pytest и др.).
+
+Git / ignore:
+- Файл: .gitignore
+- Описание: исключает .venv, dev.db, __pycache__ и т.п.; репозиторий запушен в origin/main.
+
+Примечания и дальнейшие шаги:
+- Если нужно, могу распарсить содержание Word-файла `project_ru (1).docx` и сопоставить его пункты точно.
+- Могу также закоммитить этот файл и/или создать подробный отчёт в формате Markdown.
+
+Файл создан автоматически: PROJECT_MAPPING.txt
