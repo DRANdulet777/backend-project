@@ -1,4 +1,14 @@
+.venv/
+dev.db
 __pycache__/
+*.pyc
+.pytest_cache/
+env/
+.env
+*.sqlite3
+*.log
+.vscode/
+/.mypy_cache/__pycache__/
 venv/
 .env
 *.pyc
